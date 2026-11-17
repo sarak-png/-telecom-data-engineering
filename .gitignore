@@ -1,0 +1,58 @@
+# Local Python environment
+.venv/
+
+# Python and pytest caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Generated ingestion state, derived data and local validation output
+/data/ingestion/
+/data/processed/
+/float_result.txt
+
+# Exact local TRA export has unresolved acquisition provenance; see data/raw/README.md
+/data/raw/tra-open-data-traffic.csv
+
+# Local SQLite databases and their journal, WAL and shared-memory files
+*.sqlite
+*.sqlite3
+*.db
+*.sqlite-*
+*.sqlite3-*
+*.db-*
+
+# Machine-specific editor settings and PowerShell caches
+/.vscode/
+/Microsoft/
+
+# Local environment files; keep the secret-free template eligible
+.env
+.env.*
+*.env
+!.env.example
+
+# Project-local credential and OAuth token stores
+/.secrets/
+/.credentials/
+/.tokens/
+/.snowflake/
+/credentials.json
+/credentials.local.*
+/tokens.json
+/oauth_tokens.json
+/token_cache.json
+*.token
+
+# Private keys and key containers
+*.p8
+*.pem
+*.key
+*.pfx
+*.p12
+*.ppk
+*.jks
+*.keystore
+id_rsa
+id_ecdsa
+id_ed25519

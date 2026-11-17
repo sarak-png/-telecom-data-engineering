@@ -1,0 +1,12 @@
+# SYNTHETIC ENGINEERING FIXTURE - all metric values are invented, not real TRA data.
+# Layout follows the original TRA bilingual CSV export.
+# Expected: 2026 Q3 NEW, 2026 Q2 REVISED, 2026 Q1 UNCHANGED.
+# Records: 3
+# Synthetic warehouse baseline is defined in tests/test_incremental_fixture.py.
+# For offline tests only.
+Year,Quarter,Outgoing International Minutes Million,Incoming International Minutes Million,Mobile Local Minutes Million,Fixed Local Minutes Million,Fixed Broadband Consumption Million Gb,Mobile Broadband Consumption Million Gb,International Internet Capacity Mbps
+السنة,الربع,الدقائق الدولية الصادرة (مليون دقيقة),الدقائق الدولية الواردة (مليون دقيقة),الاستخدام المحلي للهاتف المتنقل (مليون دقيقة),الاستخدام المحلي للهاتف الثابت (مليون دقيقة),الاستهلاك المحلي للنطاق العريض الثابت (مليون جيجابيت),الاستهلاك المحلي للنطاق العريض المتنقل (مليون جيجابيت),إجمالي السعة الدولية للإنترنت (ميجابت/ثانية)
+,,,,,,,,
+"2,026.00",3.00,103.00,203.00,303.00,403.00,503.00,603.00,703
+"2,026.00",2.00,112.00,202.00,302.00,402.00,,602.00,702
+"2,026.00",1.00,101.00,201.00,301.00,,501.00,601.00,701

@@ -1,0 +1,3 @@
+# Optional cloud integration dependencies; core ingestion remains independent.
+-r requirements.txt
+snowflake-connector-python>=5,<6

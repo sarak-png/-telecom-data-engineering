@@ -1,0 +1,133 @@
+{
+  "contract_version": "1.1",
+  "database": "TELECOM_DB",
+  "confirmed_objects_source": "User-confirmed object list, 2026-11-15",
+  "objects": {
+    "raw_source": {
+      "schema": "RAW",
+      "name": "TRA_TRAFFIC_SOURCE",
+      "kind": "TABLE",
+      "schema_evidence": "User-supplied verified live Snowflake DESCRIBE results, 2026-11-15",
+      "schema_status": "verified_from_live_describe",
+      "constraints": {"primary_key": [], "unique_keys": []},
+      "columns": [
+        {"name": "Year", "type": "VARCHAR(16777216)", "nullable": true},
+        {"name": "Quarter", "type": "VARCHAR(16777216)", "nullable": true},
+        {"name": "Outgoing International Minutes Million", "type": "VARCHAR(16777216)", "nullable": true},
+        {"name": "Incoming International Minutes Million", "type": "VARCHAR(16777216)", "nullable": true},
+        {"name": "Mobile Local Minutes Million", "type": "VARCHAR(16777216)", "nullable": true},
+        {"name": "Fixed Local Minutes Million", "type": "VARCHAR(16777216)", "nullable": true},
+        {"name": "Fixed Broadband Consumption Million Gb", "type": "VARCHAR(16777216)", "nullable": true},
+        {"name": "Mobile Broadband Consumption Million Gb", "type": "VARCHAR(16777216)", "nullable": true},
+        {"name": "International Internet Capacity Mbps", "type": "VARCHAR(16777216)", "nullable": true}
+      ]
+    },
+    "staging_clean": {
+      "schema": "STAGING",
+      "name": "TRA_TRAFFIC_CLEAN",
+      "kind": "TABLE",
+      "schema_evidence": "User-supplied tra_traffic_clean_schema_2026-11-10-0841.csv DESCRIBE export",
+      "schema_status": "confirmed_by_describe_export",
+      "columns": [
+        {"name": "YEAR", "type": "NUMBER(38,0)", "nullable": true},
+        {"name": "QUARTER", "type": "NUMBER(38,0)", "nullable": true},
+        {"name": "OUTGOING_INT_MIN_M", "type": "FLOAT", "nullable": true},
+        {"name": "INCOMING_INT_MIN_M", "type": "FLOAT", "nullable": true},
+        {"name": "MOBILE_LOCAL_MIN_M", "type": "FLOAT", "nullable": true},
+        {"name": "FIXED_LOCAL_MIN_M", "type": "FLOAT", "nullable": true},
+        {"name": "FIXED_BROADBAND_GB_M", "type": "FLOAT", "nullable": true},
+        {"name": "MOBILE_BROADBAND_GB_M", "type": "FLOAT", "nullable": true},
+        {"name": "INTERNET_CAPACITY_MBPS", "type": "FLOAT", "nullable": true}
+      ]
+    },
+    "quarterly_fact": {
+      "schema": "ANALYTICS",
+      "name": "FACT_TELECOM_QUARTERLY",
+      "kind": "TABLE",
+      "schema_evidence": "User-supplied verified live Snowflake DESCRIBE results, 2026-11-15",
+      "schema_status": "verified_from_live_describe",
+      "constraints": {"primary_key": [], "unique_keys": []},
+      "columns": [
+        {"name": "YEAR", "type": "NUMBER(38,0)", "nullable": false},
+        {"name": "QUARTER", "type": "NUMBER(38,0)", "nullable": false},
+        {"name": "QUARTER_START_DATE", "type": "DATE", "nullable": false},
+        {"name": "OUTGOING_INT_MIN_M", "type": "FLOAT", "nullable": true},
+        {"name": "INCOMING_INT_MIN_M", "type": "FLOAT", "nullable": true},
+        {"name": "MOBILE_LOCAL_MIN_M", "type": "FLOAT", "nullable": true},
+        {"name": "FIXED_LOCAL_MIN_M", "type": "FLOAT", "nullable": true},
+        {"name": "FIXED_BROADBAND_GB_M", "type": "FLOAT", "nullable": true},
+        {"name": "MOBILE_BROADBAND_GB_M", "type": "FLOAT", "nullable": true},
+        {"name": "INTERNET_CAPACITY_MBPS", "type": "FLOAT", "nullable": true},
+        {"name": "SOURCE_TABLE", "type": "VARCHAR(16777216)", "nullable": false},
+        {"name": "ANALYTICS_BATCH_ID", "type": "VARCHAR(16777216)", "nullable": false},
+        {"name": "ANALYTICS_LOADED_AT", "type": "TIMESTAMP_TZ(9)", "nullable": false}
+      ]
+    },
+    "yearly_summary": {
+      "schema": "ANALYTICS",
+      "name": "VW_YEARLY_TELECOM_SUMMARY",
+      "kind": "VIEW",
+      "schema_evidence": "sql/analytics/004_create_views.sql",
+      "schema_status": "projection_known_result_types_pending_live_describe",
+      "columns": [
+        {"name": "YEAR", "type": null, "nullable": null},
+        {"name": "QUARTERS_PRESENT", "type": null, "nullable": null},
+        {"name": "FIRST_QUARTER_PRESENT", "type": null, "nullable": null},
+        {"name": "LAST_QUARTER_PRESENT", "type": null, "nullable": null},
+        {"name": "IS_FULL_YEAR", "type": null, "nullable": null},
+        {"name": "Q4_INTERNET_CAPACITY_MBPS", "type": null, "nullable": null}
+      ]
+    },
+    "data_coverage": {
+      "schema": "ANALYTICS",
+      "name": "VW_TELECOM_DATA_COVERAGE",
+      "kind": "VIEW",
+      "schema_evidence": "sql/analytics/004_create_views.sql",
+      "schema_status": "projection_known_result_types_pending_live_describe",
+      "columns": [
+        {"name": "YEAR", "type": null, "nullable": null},
+        {"name": "METRIC_NAME", "type": null, "nullable": null},
+        {"name": "QUARTERS_PRESENT", "type": null, "nullable": null},
+        {"name": "OBSERVED_VALUE_COUNT", "type": null, "nullable": null},
+        {"name": "NULL_VALUE_COUNT", "type": null, "nullable": null},
+        {"name": "EXPECTED_QUARTERS", "type": null, "nullable": null},
+        {"name": "ABSENT_QUARTER_COUNT", "type": null, "nullable": null},
+        {"name": "LATEST_QUARTER_PRESENT", "type": null, "nullable": null},
+        {"name": "IS_COMPLETE_YEAR", "type": null, "nullable": null}
+      ]
+    }
+  },
+  "column_mapping": [
+    {"raw": "Year", "staging": "YEAR", "analytics": "YEAR"},
+    {"raw": "Quarter", "staging": "QUARTER", "analytics": "QUARTER"},
+    {"raw": "Outgoing International Minutes Million", "staging": "OUTGOING_INT_MIN_M", "analytics": "OUTGOING_INT_MIN_M"},
+    {"raw": "Incoming International Minutes Million", "staging": "INCOMING_INT_MIN_M", "analytics": "INCOMING_INT_MIN_M"},
+    {"raw": "Mobile Local Minutes Million", "staging": "MOBILE_LOCAL_MIN_M", "analytics": "MOBILE_LOCAL_MIN_M"},
+    {"raw": "Fixed Local Minutes Million", "staging": "FIXED_LOCAL_MIN_M", "analytics": "FIXED_LOCAL_MIN_M"},
+    {"raw": "Fixed Broadband Consumption Million Gb", "staging": "FIXED_BROADBAND_GB_M", "analytics": "FIXED_BROADBAND_GB_M"},
+    {"raw": "Mobile Broadband Consumption Million Gb", "staging": "MOBILE_BROADBAND_GB_M", "analytics": "MOBILE_BROADBAND_GB_M"},
+    {"raw": "International Internet Capacity Mbps", "staging": "INTERNET_CAPACITY_MBPS", "analytics": "INTERNET_CAPACITY_MBPS"}
+  ],
+  "historical_baseline": {
+    "scope": "Original validated snapshot regression fixture",
+    "row_count": 66,
+    "first_period": [2010, 1],
+    "last_period": [2026, 2],
+    "source_sha256": "12669dca1700108add4eeab7e5ff15dba6e1a32d4ec41e2e8cc61d1f7af28ddd",
+    "metric_null_counts": {
+      "OUTGOING_INT_MIN_M": 0,
+      "INCOMING_INT_MIN_M": 0,
+      "MOBILE_LOCAL_MIN_M": 4,
+      "FIXED_LOCAL_MIN_M": 15,
+      "FIXED_BROADBAND_GB_M": 32,
+      "MOBILE_BROADBAND_GB_M": 32,
+      "INTERNET_CAPACITY_MBPS": 1
+    }
+  },
+  "legacy_objects": [
+    {"name": "RAW.TRA_TRAFFIC", "automatic_replacement": null, "reason": "Five metadata columns and snapshot identity required by the legacy RAW MERGE"},
+    {"name": "STAGING.TRA_TRAFFIC", "automatic_replacement": null, "reason": "Long metric aliases, NUMBER(38,6), and source lineage differ from TRA_TRAFFIC_CLEAN"},
+    {"name": "MART.FACT_TELECOM_QUARTERLY", "automatic_replacement": null, "reason": "Metric names, numeric types, and lineage differ from the ANALYTICS fact"},
+    {"name": "OPS.INGESTION_BATCHES", "automatic_replacement": null, "reason": "A warehouse audit relation has no counterpart among the five confirmed objects"}
+  ]
+}
